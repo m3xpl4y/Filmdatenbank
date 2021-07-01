@@ -10,8 +10,7 @@ namespace FilmDatenbank
     {
         static void Main(string[] args)
         {
-
-
+            CountWords(SplitGenreMethod(ReadGenres()));
             
             #region INSERT MOVIE
             // List<string> stringListe = ResultsListen();
@@ -20,11 +19,46 @@ namespace FilmDatenbank
             #endregion
         }
 
+        #region INSERT GENRE
 
+        public static List<string> ReadGenres()
+        {
+            List<string> readListCsv = new List<string>();
+            string fileName = @"C:\Users\DCV\OneDrive\vscode_max\Sonstiges\genre.csv";
+            foreach (var line in File.ReadAllLines(fileName))
+            {
+                readListCsv.Add(line);
+            }
+            return readListCsv;
+        }
 
+        public static List<Genre> SplitGenreMethod(List<string> stringListe)
+        {
+            List<Genre> genreListe = new List<Genre>();
+            foreach (var line in stringListe)
+            {
+                string[] splits = line.Split(',');
+                Genre genre = new Genre();
+                genre.GenreName = splits[0];
+                genreListe.Add(genre);
+            }
+            return genreListe;
+        }
 
+        private static void CountWords(List<Genre> gerneListe)
+        {
+            List<Genre> genreList = new List<Genre>();
+            foreach(var genre in gerneListe)
+            {
+                if(!genreList.Contains(genre))
+                {
+                    genreList.Add(genre);
+                    System.Console.WriteLine(genre.GenreName);
+                }
+            }
+        }
 
-
+        #endregion
 
         #region INSERT MOVIES IN DATBASE
         public static List<string> ResultsListen()

@@ -47,15 +47,24 @@ namespace FilmDatenbank
 
         private static void CountWords(List<Genre> gerneListe)
         {
-            List<Genre> genreList = new List<Genre>();
-            foreach(var genre in gerneListe)
+            int check =0;
+            List<string> genreList = new List<string>();
+            foreach(Genre genre in gerneListe)
             {
-                if(!genreList.Contains(genre))
+                
+                if(!genreList.Contains(genre.GenreName))
                 {
-                    genreList.Add(genre);
-                    System.Console.WriteLine(genre.GenreName);
+                    check++;
+                    genreList.Add(genre.GenreName);
+                    System.Console.WriteLine(check);
                 }
+                else{
+                    System.Console.WriteLine("Nicht Vorhanden!");
+                }
+                
             }
+            System.Console.WriteLine("CHECK: " + check);
+            System.Console.WriteLine("Count: " + genreList.Count);
         }
 
         #endregion

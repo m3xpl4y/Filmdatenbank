@@ -38,9 +38,15 @@ namespace FilmDatenbank
             foreach (var line in stringListe)
             {
                 string[] splits = line.Split(',');
-                Genre genre = new Genre();
-                genre.GenreName = splits[0];
-                genreListe.Add(genre);
+                
+                foreach (var split in splits)
+                {
+                    Genre genre = new Genre();
+                    genre.GenreName = split.Trim().ToLower();
+                    
+                    genreListe.Add(genre);
+                    System.Console.WriteLine(split.Trim().ToLower());
+                }
             }
             return genreListe;
         }
@@ -56,6 +62,7 @@ namespace FilmDatenbank
                 {
                     check++;
                     genreList.Add(genre.GenreName);
+                    WriteToFile(genre.GenreName);
                     System.Console.WriteLine(check);
                 }
                 else{
@@ -146,6 +153,14 @@ namespace FilmDatenbank
             }
         }
         #endregion
+
+
+        //
+        private static void WriteToFile(string genre)
+        {
+            string path = @"C:\Users\DCV\OneDrive\vscode_max\Sonstiges\genreAusgabe2.csv";
+            File.AppendAllTextAsync(path, genre + Environment.NewLine);
+        }
 
     }
 }
